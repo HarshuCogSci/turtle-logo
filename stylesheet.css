@@ -1,0 +1,30 @@
+#command_log{
+    width: 100%;
+    height: 60%;
+}
+
+#turtle{
+    fill: black;
+}
+
+#stroke_space{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+
+#turtle_space{
+    width: 90%;
+    height: 90%;
+    /* position: absolute; */
+    /* top: 0px; */
+    /* left: 0px; */
+    background: #ddd;
+}
+
+#image_space{
+    width: 100%;
+    height: 90%;
+    position: relative;
+}
