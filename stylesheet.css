@@ -1,30 +1,22 @@
-#command_log{
-    width: 100%;
-    height: 60%;
+#turtle_space{
+    background: #ddd;
+    border-radius: 20px;
+    position: relative;
+}
+
+#pencil_icon{
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }
 
 #turtle{
-    fill: black;
+    stroke: black;
+    fill: none;
 }
 
-#stroke_space{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    display: none;
-}
-
-#turtle_space{
-    width: 90%;
-    height: 90%;
-    /* position: absolute; */
-    /* top: 0px; */
-    /* left: 0px; */
-    background: #ddd;
-}
-
-#image_space{
+#command_log{
     width: 100%;
-    height: 90%;
-    position: relative;
+    height: 30%;
+    overflow-y: scroll;
 }
