@@ -23,6 +23,13 @@ Simulation.prototype.reset = function(){
 
 /**************************************************************************************/
 
+Simulation.prototype.undo = function(){
+    this.visual.undo();
+    this.prompt.undo();
+}
+
+/**************************************************************************************/
+
 Simulation.prototype.event = function(data){
     this.visual.event(data);
     this.prompt.event(data);

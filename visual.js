@@ -38,6 +38,14 @@ Visual.prototype.reset = function(){
 
 /**************************************************************************************/
 
+Visual.prototype.undo = function(){
+    var temp_event = this.sequence.pop();
+    this.calculate();
+    if(temp_event.type == 'translate'){ this.eraseLine(); }
+}
+
+/**************************************************************************************/
+
 Visual.prototype.create_overlay = function(){
     var type = this.simulation.overlay_type;
     if(type == 'none'){ this.overlay.attrs({ d: '' }) };
@@ -90,11 +98,13 @@ Visual.prototype.event = function(data){
 Visual.prototype.rotate = function(angle){
     this.sequence.push({ type: 'rotation', value: angle });
     this.calculate();
+    // if(this.simulation.trace){ this.appendLine(); }
 }
 
 Visual.prototype.translate = function(dist){
     this.sequence.push({ type: 'translate', value: dist*this.scale_turtle });
     this.calculate();
+    if(this.simulation.trace){ this.appendLine(); }
 }
 
 /**************************************************************************************/
@@ -116,7 +126,7 @@ Visual.prototype.calculate = function(){
         }
     }
 
-    if(this.simulation.trace){ this.appendLine(); }
+    // if(this.simulation.trace){ this.appendLine(); }
     this.render_turtle();
 }
 
@@ -130,6 +140,16 @@ Visual.prototype.appendLine = function(){
         .duration(1000)
         .ease(d3.easeLinear)
         .attrs({ x2: this.origin_x, y2: this.origin_y });
+}
+
+/**************************************************************************************/
+
+Visual.prototype.eraseLine = function(){
+    var lines = this.origin.selectAll('line')._groups[0];
+    var len = lines.length;
+    lines[len-1].remove();
+    // lines[len-2].remove();
+    console.log(this.sequence);
 }
 
 /**************************************************************************************/

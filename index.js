@@ -23,6 +23,12 @@ function reset(){
 
 /**************************************************************************************/
 
+function undo(){
+    simulation.undo();
+}
+
+/**************************************************************************************/
+
 function createEventListeners(){
     $('body').on('instruction', function(event, data){
         simulation.event(data);

@@ -21,6 +21,15 @@ Prompt.prototype.reset = function(){
 
 /**************************************************************************************/
 
+Prompt.prototype.undo = function(){
+    this.sequence.pop();
+    var log_items = this.log.selectAll('.log_item')._groups[0];
+    var len = log_items.length;
+    log_items[len-1].remove();
+}
+
+/**************************************************************************************/
+
 Prompt.prototype.overlay_type_change = function(data){
     d3.select('#dimensions_select').select('.box_g').remove();
     var box_g = d3.select('#dimensions_select').append('span').attrs({ class: 'box_g' });
