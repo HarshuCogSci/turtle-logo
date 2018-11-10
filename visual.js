@@ -41,6 +41,7 @@ Visual.prototype.reset = function(){
 Visual.prototype.undo = function(){
     var temp_event = this.sequence.pop();
     this.calculate();
+    if(temp_event == undefined){ return }
     if(temp_event.type == 'translate'){ this.eraseLine(); }
 }
 
@@ -151,15 +152,20 @@ Visual.prototype.eraseLine = function(){
     var lines = this.origin.selectAll('line')._groups[0];
     var len = lines.length;
     lines[len-1].remove();
-    // lines[len-2].remove();
-    console.log(this.sequence);
 }
 
 /**************************************************************************************/
 
 Visual.prototype.render_turtle = function(){
     var event = this.sequence[this.sequence.length-1];
-    if(event == undefined){ return }
+    if(event == undefined){
+        this.turtle_g
+            .transition()
+            .duration(1000)
+            .ease(d3.easeLinear)
+            .attrs({ transform: 'translate(' +this.origin_x+ ',' +this.origin_y+ ') rotate(' +this.origin_angle+ ')' });
+        return
+    }
 
     if(event.type == 'translate'){
         this.turtle_g

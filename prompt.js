@@ -25,6 +25,7 @@ Prompt.prototype.undo = function(){
     this.sequence.pop();
     var log_items = this.log.selectAll('.log_item')._groups[0];
     var len = log_items.length;
+    if(len == 0){ return }
     log_items[len-1].remove();
 }
 
