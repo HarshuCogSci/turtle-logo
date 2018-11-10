@@ -32,8 +32,9 @@ Prompt.prototype.overlay_type_change = function(data){
     if(data.value == 'rect'){
         box_g.append('span').html('Chooose width: ');
         box_g.append('input').attrs({ type: 'number', id: 'rect_width', value: 10 });
-        box_g.append('span').html('Chooose height: ');
-        box_g.append('input').attrs({ type: 'number', id: 'rect_height', value: 5 });
+        box_g.append('br');
+        box_g.append('span').attrs({ class: 'mt-2' }).html('Chooose height: ');
+        box_g.append('input').attrs({ class: 'mt-2', type: 'number', id: 'rect_height', value: 5 });
     }
     if(data.value == 'triangle'){
         box_g.append('span').html('Chooose side length: ');
