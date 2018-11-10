@@ -8,7 +8,7 @@ Visual.prototype.setup = function(svg_id, canvas_id){
     this.height = parseFloat( this.svg.style('height') );
     this.svg.attrs({ width: this.width, height: this.height });
 
-    this.origin = this.svg.append('g').attrs({ transform: 'translate(' +0.5*this.width+ ',' +0.5*this.height+ ')' });
+    this.origin = this.svg.append('g').attrs({ transform: 'translate(' +0.1*this.width+ ',' +0.9*this.height+ ')' });
 
     this.overlay = this.origin.append('path').styles({ stroke: 'gray', fill: 'none' });
 
