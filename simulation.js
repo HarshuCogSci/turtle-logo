@@ -27,3 +27,16 @@ Simulation.prototype.event = function(data){
     this.visual.event(data);
     this.prompt.event(data);
 }
+
+/**************************************************************************************/
+
+Simulation.prototype.overlay_type_change = function(data){
+    this.prompt.overlay_type_change(data);
+}
+
+/**************************************************************************************/
+
+Simulation.prototype.create_overlay = function(){
+    this.prompt.get_overlay_data();
+    this.visual.create_overlay();
+}

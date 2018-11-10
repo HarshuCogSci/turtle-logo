@@ -9,10 +9,14 @@ Visual.prototype.setup = function(svg_id, canvas_id){
     this.svg.attrs({ width: this.width, height: this.height });
 
     this.origin = this.svg.append('g').attrs({ transform: 'translate(' +0.5*this.width+ ',' +0.5*this.height+ ')' });
+
+    this.overlay = this.origin.append('path').styles({ stroke: 'gray', fill: 'none' });
+
     this.turtle_g = this.origin.append('g');
     this.turtle = this.turtle_g.append('path').attrs({ id: 'turtle', d: 'M 0 -40 L 12 0 L -12 0 z' });
 
-    this.scale = 20;
+    this.scale = 30;
+    this.overlay_id = null;
 
     this.reset();
 }
@@ -29,6 +33,38 @@ Visual.prototype.reset = function(){
 
     this.origin.selectAll('.trace').remove();
     this.render_turtle();
+}
+
+/**************************************************************************************/
+
+Visual.prototype.create_overlay = function(){
+    var type = this.simulation.overlay_type;
+    if(type == 'none'){ this.overlay.attrs({ d: '' }) };
+    if(type == 'square'){
+        var length = parseInt( d3.select('#square_length').property('value') );
+        if(length == undefined){ length = 0; }
+        length *= this.scale;
+        this.overlay.attrs({ d: 'M 0 0 L ' +length+ ' 0 L ' +length+ ' ' +(-length)+ ' L 0 ' +(-length)+ ' z' });
+    };
+
+    if(type == 'rect'){
+        var width = parseInt( d3.select('#rect_width').property('value') );
+        if(width == undefined){ width = 0; }
+        width *= this.scale;
+
+        var height = parseInt( d3.select('#rect_height').property('value') );
+        if(height == undefined){ width = 0; }
+        height *= this.scale;
+
+        this.overlay.attrs({ d: 'M 0 0 L ' +width+ ' 0 L ' +width+ ' ' +(-height)+ ' L 0 ' +(-height)+ ' z' });
+    };
+
+    if(type == 'triangle'){
+        var length = parseInt( d3.select('#triangle_length').property('value') );
+        if(length == undefined){ length = 0; }
+        length *= this.scale;
+        this.overlay.attrs({ d: 'M 0 0 L ' +length+ ' 0 L ' +0.5*length+ ' ' +(-0.5*Math.sqrt(3)*length)+ ' z' });
+    };
 }
 
 /**************************************************************************************/
@@ -78,7 +114,7 @@ Visual.prototype.calculate = function(){
 Visual.prototype.appendLine = function(){
     var temp_line = this.origin.append('line')
         .attrs({ x1: this.origin_x_old, y1: this.origin_y_old, x2: this.origin_x_old, y2: this.origin_y_old, class: 'trace' })
-        .styles({ stroke: 'black' })
+        .styles({ stroke: 'black', 'stroke-width': 3 })
         .transition()
         .duration(1000)
         .ease(d3.easeLinear)

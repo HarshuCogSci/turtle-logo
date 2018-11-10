@@ -21,6 +21,34 @@ Prompt.prototype.reset = function(){
 
 /**************************************************************************************/
 
+Prompt.prototype.overlay_type_change = function(data){
+    d3.select('#dimensions_select').select('.box_g').remove();
+    var box_g = d3.select('#dimensions_select').append('span').attrs({ class: 'box_g' });
+    if(data.value == 'none'){}
+    if(data.value == 'square'){
+        box_g.append('span').html('Chooose side length: ');
+        box_g.append('input').attrs({ type: 'number', id: 'square_length', value: 5 });
+    }
+    if(data.value == 'rect'){
+        box_g.append('span').html('Chooose width: ');
+        box_g.append('input').attrs({ type: 'number', id: 'rect_width', value: 10 });
+        box_g.append('span').html('Chooose height: ');
+        box_g.append('input').attrs({ type: 'number', id: 'rect_height', value: 5 });
+    }
+    if(data.value == 'triangle'){
+        box_g.append('span').html('Chooose side length: ');
+        box_g.append('input').attrs({ type: 'number', id: 'triangle_length', value: 5 });
+    }
+}
+
+/**************************************************************************************/
+
+Prompt.prototype.get_overlay_data = function(){
+    this.simulation.overlay_type = d3.select('#shape_select').property('value');
+}
+
+/**************************************************************************************/
+
 Prompt.prototype.event = function(data){
     this.sequence.push(data);
     var temp_tr = this.log.append('tr').attrs({ class: 'log_item' });
@@ -77,5 +105,9 @@ Prompt.prototype.createEvents = function(){
 
     this.trace_box.on('change', function(d){
         d.simulation.trace = d3.select(this).property('checked');
+    })
+
+    d3.select('#shape_select').on('change', function(){
+        $('body').trigger('overlay_type_change', { value: d3.select(this).property('value') })
     })
 }

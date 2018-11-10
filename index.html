@@ -40,10 +40,29 @@
           </div>
           <div class="card-footer text-center">
               Input: <input id="command_input" type="text">
-              <div id="command_enter" class="btn btn-primary btn-sm">Enter</div>
-              <br>
-              <input type="checkbox" name="" id="trace_box" checked> Trace
+              <div id="command_enter" class="btn btn-success btn-sm">Enter</div>
+              <span class="ml-5">
+                <input type="checkbox" name="" id="trace_box" checked> Trace
+              </span>
+              <br> <br>
+              <div class="btn btn-danger btn-sm" onclick="reset()">Reset</div>
           </div>
+        </div>
+
+        <div class="mt-4 text-center" id="shape_controls">
+          <div>
+            Choose a shape:
+            <select name="" id="shape_select">
+              <option value="none">None</option>
+              <option value="square">Square</option>
+              <option value="rect">Rectangle</option>
+              <option value="triangle">Triangle</option>
+            </select>
+          </div>
+
+          <div id="dimensions_select" class="mt-3"></div>
+          <div class="btn btn-success btn-sm mt-2" id="create_overlay_button">Submit</div>
+          <div class="btn btn-danger btn-sm mt-2" id="hide_button">Hide</div>
         </div>
       </div>
 
