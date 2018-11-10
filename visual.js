@@ -133,11 +133,14 @@ Visual.prototype.calculate = function(){
 /**************************************************************************************/
 
 Visual.prototype.appendLine = function(){
+    var event = this.sequence[this.sequence.length-1];
+    if(event == undefined){ return }
+
     var temp_line = this.origin.append('line')
         .attrs({ x1: this.origin_x_old, y1: this.origin_y_old, x2: this.origin_x_old, y2: this.origin_y_old, class: 'trace' })
         .styles({ stroke: 'black', 'stroke-width': 3 })
         .transition()
-        .duration(1000)
+        .duration(10*event.value)
         .ease(d3.easeLinear)
         .attrs({ x2: this.origin_x, y2: this.origin_y });
 }
@@ -155,9 +158,22 @@ Visual.prototype.eraseLine = function(){
 /**************************************************************************************/
 
 Visual.prototype.render_turtle = function(){
-    this.turtle_g
-        .transition()
-        .duration(1000)
-        .ease(d3.easeLinear)
-        .attrs({ transform: 'translate(' +this.origin_x+ ',' +this.origin_y+ ') rotate(' +this.origin_angle+ ')' });
+    var event = this.sequence[this.sequence.length-1];
+    if(event == undefined){ return }
+
+    if(event.type == 'translate'){
+        this.turtle_g
+            .transition()
+            .duration(10*event.value)
+            .ease(d3.easeLinear)
+            .attrs({ transform: 'translate(' +this.origin_x+ ',' +this.origin_y+ ') rotate(' +this.origin_angle+ ')' });
+    }
+
+    if(event.type == 'rotation'){
+        this.turtle_g
+            .transition()
+            .duration(8*event.value)
+            .ease(d3.easeLinear)
+            .attrs({ transform: 'translate(' +this.origin_x+ ',' +this.origin_y+ ') rotate(' +this.origin_angle+ ')' });
+    }
 }
