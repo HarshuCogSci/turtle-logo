@@ -45,4 +45,10 @@ function createEventListeners(){
     d3.select('#hide_button').on('click', function(){
         d3.select('#shape_controls').styles({ display: 'none' });
     })
+
+    d3.select('#scale_select').on('change', function(){
+        var scale = d3.select(this).property('value');
+        if(scale == 'A'){ simulation.visual.scale_turtle = 3; }
+        if(scale == 'B'){ simulation.visual.scale_turtle = 30; }
+    })
 }

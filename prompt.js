@@ -75,6 +75,10 @@ Prompt.prototype.event = function(data){
         if(this.simulation.trace){ return 'TRACE ON' }
         return ''
     });
+    temp_tr.append('td').html(() => {
+        return 'Scale ' + d3.select('#scale_select').property('value');
+    });
+
 }
 
 /**************************************************************************************/
