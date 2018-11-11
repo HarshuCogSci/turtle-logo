@@ -31,6 +31,12 @@ Prompt.prototype.undo = function(){
 
 /**************************************************************************************/
 
+Prompt.prototype.erase_history = function(){
+    this.reset();
+}
+
+/**************************************************************************************/
+
 Prompt.prototype.overlay_type_change = function(data){
     d3.select('#dimensions_select').select('.box_g').remove();
     var box_g = d3.select('#dimensions_select').append('span').attrs({ class: 'box_g' });
@@ -76,7 +82,9 @@ Prompt.prototype.event = function(data){
         return ''
     });
     temp_tr.append('td').html(() => {
-        return 'Scale ' + d3.select('#scale_select').property('value');
+        var value = d3.select('#scale_select').property('value');
+        var scale = value == 'A' ? '(1x)' : '(10x)';
+        return 'Scale ' + value + ' ' + scale;
     });
 
 }

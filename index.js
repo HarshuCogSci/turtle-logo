@@ -51,4 +51,8 @@ function createEventListeners(){
         if(scale == 'A'){ simulation.visual.scale_turtle = 3; }
         if(scale == 'B'){ simulation.visual.scale_turtle = 30; }
     })
+
+    d3.select('#erase_button').on('click', function(){
+        simulation.erase_history();
+    })
 }

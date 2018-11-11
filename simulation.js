@@ -30,6 +30,13 @@ Simulation.prototype.undo = function(){
 
 /**************************************************************************************/
 
+Simulation.prototype.erase_history = function(){
+    this.visual.erase_history();
+    this.prompt.erase_history();
+}
+
+/**************************************************************************************/
+
 Simulation.prototype.event = function(data){
     this.visual.event(data);
     this.prompt.event(data);
