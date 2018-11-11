@@ -90,8 +90,8 @@ Prompt.prototype.event = function(data){
     temp_tr.append('td').html(() => {
         if(data.command == 'FD'){ return 'FORWARD' }
         if(data.command == 'BD'){ return 'BACKWARD' }
-        if(data.command == 'RT'){ return 'RIGHT' }
-        if(data.command == 'LT'){ return 'LEFT' }
+        if(data.command == 'RT'){ return 'TURN RIGHT' }
+        if(data.command == 'LT'){ return 'TURN LEFT' }
     });
     temp_tr.append('td').html(data.value);
     temp_tr.append('td').html(() => {
@@ -109,33 +109,64 @@ Prompt.prototype.event = function(data){
 /**************************************************************************************/
 
 Prompt.prototype.emitEvent = function(){
-    var str = this.input.property('value');
-    this.input.property('value', '');
+    var command = d3.select('#command_select').property('value');
+    var value = d3.select('#command_value').property('value');
+    d3.select('#command_value').property('value', '');
 
-    var command = str.split(' ')[0];
-    var value = parseInt(str.split(' ')[1]);
+    if(value == ''){ return }
+    value = parseInt(value);
 
-    if( (command == 'FD' || command == 'fd') && isNaN(value) == false ){
+    if(command == 'forward'){
         $('body').trigger('instruction', { command: 'FD', value: value });
     }
 
-        if( (command == 'bd' || command == 'BD') && isNaN(value) == false ){
-            $('body').trigger('instruction', { command: 'BD', value: value });
-        }
+    if(command == 'backward'){
+        $('body').trigger('instruction', { command: 'BD', value: value });
+    }
 
-    if( (command == 'rt' || command == 'RT') && isNaN(value) == false ){
+    if(command == 'right'){
         $('body').trigger('instruction', { command: 'RT', value: value });
     }
 
-    if( (command == 'lt' || command == 'LT') && isNaN(value) == false ){
+    if(command == 'left'){
         $('body').trigger('instruction', { command: 'LT', value: value });
     }
+
+
+    // if( (command == 'FD' || command == 'fd') && isNaN(value) == false ){
+    //     $('body').trigger('instruction', { command: 'FD', value: value });
+    // }
+
+
+    // console.log(command, value);
+
+    // var str = this.input.property('value');
+    // this.input.property('value', '');
+
+    // var command = str.split(' ')[0];
+    // var value = parseInt(str.split(' ')[1]);
+
+    // if( (command == 'FD' || command == 'fd') && isNaN(value) == false ){
+    //     $('body').trigger('instruction', { command: 'FD', value: value });
+    // }
+
+    //     if( (command == 'bd' || command == 'BD') && isNaN(value) == false ){
+    //         $('body').trigger('instruction', { command: 'BD', value: value });
+    //     }
+
+    // if( (command == 'rt' || command == 'RT') && isNaN(value) == false ){
+    //     $('body').trigger('instruction', { command: 'RT', value: value });
+    // }
+
+    // if( (command == 'lt' || command == 'LT') && isNaN(value) == false ){
+    //     $('body').trigger('instruction', { command: 'LT', value: value });
+    // }
 }
 
 /**************************************************************************************/
 
 Prompt.prototype.createEvents = function(){
-    this.input.on('keypress', function(d){
+    d3.select('#command_value').data([this]).on('keypress', function(d){
         if(d3.event.key == 'Enter'){ d.emitEvent(); }
     })
 
@@ -149,5 +180,11 @@ Prompt.prototype.createEvents = function(){
 
     d3.select('#shape_select').on('change', function(){
         $('body').trigger('overlay_type_change', { value: d3.select(this).property('value') })
+    })
+
+    d3.select('#command_value').on('input', function(){
+        var val = d3.select(this).property('value');
+        val = parseInt(val);
+        d3.select(this).property('value', val);
     })
 }

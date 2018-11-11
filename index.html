@@ -40,8 +40,21 @@
             </div>
           </div>
           <div class="card-footer text-center">
-              Input: <input id="command_input" type="text">
+            Input:
+            <select name="" id="command_select">
+                <option value="forward">FORWARD</option>
+                <option value="backward">BACKWARD</option>
+                <option value="right">TURN RIGHT</option>
+                <option value="left">TURN LEFT</option>
+            </select>
+
+            <input type="number" name="" id="command_value">
+
+            <!-- <br> -->
+            <!-- Input: <input id="command_input" type="text"> -->
+
               <div id="command_enter" class="btn btn-success btn-sm">Enter</div>
+              <br> <br>
 
               <span class="ml-3">
                     Scale:

@@ -42,7 +42,7 @@ Visual.prototype.undo = function(){
     var temp_event = this.sequence.pop();
     this.calculate();
     if(temp_event == undefined){ return }
-    if(temp_event.type == 'translate'){ this.eraseLine(); }
+    if(temp_event.type == 'translate' && temp_event.trace == true){ this.eraseLine(); }
 }
 
 /**************************************************************************************/
@@ -107,13 +107,13 @@ Visual.prototype.event = function(data){
 }
 
 Visual.prototype.rotate = function(angle){
-    this.sequence.push({ type: 'rotation', value: angle });
+    this.sequence.push({ type: 'rotation', value: angle, trace: this.simulation.trace });
     this.calculate();
     // if(this.simulation.trace){ this.appendLine(); }
 }
 
 Visual.prototype.translate = function(dist){
-    this.sequence.push({ type: 'translate', value: dist*this.scale_turtle });
+    this.sequence.push({ type: 'translate', value: dist*this.scale_turtle, trace: this.simulation.trace });
     this.calculate();
     if(this.simulation.trace){ this.appendLine(); }
 }
@@ -151,7 +151,7 @@ Visual.prototype.appendLine = function(){
         .attrs({ x1: this.origin_x_old, y1: this.origin_y_old, x2: this.origin_x_old, y2: this.origin_y_old, class: 'trace' })
         .styles({ stroke: 'black', 'stroke-width': 3 })
         .transition()
-        .duration(10*event.value)
+        .duration(10*Math.abs(event.value))
         .ease(d3.easeLinear)
         .attrs({ x2: this.origin_x, y2: this.origin_y });
 }
