@@ -41,6 +41,7 @@ Prompt.prototype.overlay_type_change = function(data){
     d3.select('#dimensions_select').select('.box_g').remove();
     var box_g = d3.select('#dimensions_select').append('span').attrs({ class: 'box_g' });
     if(data.value == 'none'){}
+
     if(data.value == 'square'){
         box_g.append('span').html('Chooose side length: ');
         box_g.append('input').attrs({ type: 'number', id: 'square_length', value: 5, step: 0.1 }).on('input', function(){
@@ -49,6 +50,25 @@ Prompt.prototype.overlay_type_change = function(data){
             d3.select(this).property('value', val);
         });
     }
+
+    if(data.value == 'line_h'){
+        box_g.append('span').html('Chooose length: ');
+        box_g.append('input').attrs({ type: 'number', id: 'line_length', value: 5, step: 0.1 }).on('input', function(){
+            var val = d3.select(this).property('value');
+            val = parseInt(val*10)/10;
+            d3.select(this).property('value', val);
+        });
+    }
+
+    if(data.value == 'line_v'){
+        box_g.append('span').html('Chooose length: ');
+        box_g.append('input').attrs({ type: 'number', id: 'line_length', value: 5, step: 0.1 }).on('input', function(){
+            var val = d3.select(this).property('value');
+            val = parseInt(val*10)/10;
+            d3.select(this).property('value', val);
+        });
+    }
+
     if(data.value == 'rect'){
         box_g.append('span').html('Chooose width: ');
         box_g.append('input').attrs({ type: 'number', id: 'rect_width', value: 10, step: 0.1 }).on('input', function(){
@@ -65,6 +85,7 @@ Prompt.prototype.overlay_type_change = function(data){
             d3.select(this).property('value', val);
         });
     }
+
     if(data.value == 'triangle'){
         box_g.append('span').html('Chooose side length: ');
         box_g.append('input').attrs({ type: 'number', id: 'triangle_length', value: 5, step: 0.1 }).on('input', function(){

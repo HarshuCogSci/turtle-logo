@@ -60,6 +60,7 @@ Visual.prototype.erase_history = function(){
 Visual.prototype.create_overlay = function(){
     var type = this.simulation.overlay_type;
     if(type == 'none'){ this.overlay.attrs({ d: '' }) };
+
     if(type == 'square'){
         var length = parseFloat( d3.select('#square_length').property('value') );
         if(length == undefined){ length = 0; }
@@ -69,6 +70,26 @@ Visual.prototype.create_overlay = function(){
 
         this.overlay.attrs({ d: 'M 0 0 L ' +length+ ' 0 L ' +length+ ' ' +(-length)+ ' L 0 ' +(-length)+ ' z' });
     };
+
+    if(type == 'line_h'){
+        var length = parseFloat( d3.select('#line_length').property('value') );
+        if(length == undefined){ length = 0; }
+        length = parseInt(length*10)/10;
+        d3.select('#line_length').property('value', length);
+        length *= this.scale_overlay;
+
+        this.overlay.attrs({ d: 'M 0 0 L ' +length+ ' 0' });
+    }
+
+    if(type == 'line_v'){
+        var length = parseFloat( d3.select('#line_length').property('value') );
+        if(length == undefined){ length = 0; }
+        length = parseInt(length*10)/10;
+        d3.select('#line_length').property('value', length);
+        length *= this.scale_overlay;
+
+        this.overlay.attrs({ d: 'M 0 0 L 0 ' +(-length) });
+    }
 
     if(type == 'rect'){
         var width = parseFloat( d3.select('#rect_width').property('value') );
